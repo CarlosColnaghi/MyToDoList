@@ -4,7 +4,8 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">?attr/actionBarSize</item>
         <item name="android:background">@color/md_theme_onPrimaryContainer</item>
-        <item name="android:titleTextColor">@color/md_theme_onPrimary</item>
-        <item name="android:subtitleTextColor">@color/md_theme_onPrimary</item>
+        <item name="titleTextColor">@color/md_theme_onPrimary</item>
+        <item name="subtitleTextColor">@color/md_theme_onPrimary</item>
+        <item name="android:paddingTop">8dp</item>
     </style>
 </resources>
