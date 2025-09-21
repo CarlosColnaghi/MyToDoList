@@ -5,4 +5,8 @@
     <string name="add_task">Add Task</string>
     <string name="you_have_nothing_to_do">You have nothing to do</string>
     <string name="add_new_tasks">Add new tasks!</string>
+    <string name="name">Name</string>
+    <string name="description">Description</string>
+    <string name="deadline">Deadline</string>
+    <string name="save">Save</string>
 </resources>

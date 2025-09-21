@@ -9,5 +9,14 @@
         android:id="@+id/taskListFragment"
         android:name="com.example.mytodolist.view.ToDoListFragment"
         android:label="fragment_task_list"
-        tools:layout="@layout/fragment_to_do_list" />
+        tools:layout="@layout/fragment_to_do_list" >
+        <action
+            android:id="@+id/action_taskListFragment_to_taskRegistrationFragment"
+            app:destination="@id/taskRegistrationFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/taskRegistrationFragment"
+        android:name="com.example.mytodolist.view.TaskRegistrationFragment"
+        android:label="fragment_task_registration"
+        tools:layout="@layout/fragment_task_registration" />
 </navigation>

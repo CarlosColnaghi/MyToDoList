@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavController
+import androidx.navigation.fragment.findNavController
+import com.example.mytodolist.R
 import com.example.mytodolist.controller.TaskViewModel
 import com.example.mytodolist.databinding.FragmentToDoListBinding
 
@@ -14,6 +17,10 @@ class ToDoListFragment : Fragment() {
 
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModel.TaskViewModelFactory
+    }
+
+    private val navController: NavController by lazy{
+        findNavController()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,7 +32,13 @@ class ToDoListFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        fragmentToDoListBinding = FragmentToDoListBinding.inflate(inflater, container, false)
+        fragmentToDoListBinding = FragmentToDoListBinding.inflate(inflater, container, false).apply {
+            taskRegistrationFloatingActionButton.setOnClickListener {
+                navController.navigate(
+                    R.id.action_taskListFragment_to_taskRegistrationFragment
+                )
+            }
+        }
         return fragmentToDoListBinding.root
     }
 
