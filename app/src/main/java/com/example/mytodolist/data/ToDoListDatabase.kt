@@ -8,16 +8,16 @@ import androidx.room.TypeConverters
 
 @Database(entities = [TaskEntity::class], version = 1)
 @TypeConverters(Converters::class)
-abstract class TaskDatabase: RoomDatabase() {
+abstract class ToDoListDatabase: RoomDatabase() {
     abstract fun TaskDAO(): TaskDAO
 
     companion object {
         @Volatile
-        private var Instance: TaskDatabase? = null
+        private var Instance: ToDoListDatabase? = null
 
-        fun getDatabase(context: Context): TaskDatabase {
+        fun getDatabase(context: Context): ToDoListDatabase {
             return Instance ?: synchronized(this) {
-                Room.databaseBuilder(context, TaskDatabase::class.java, "mytodolist")
+                Room.databaseBuilder(context, ToDoListDatabase::class.java, "mytodolist")
                     .build()
                     .also { Instance = it }
             }
