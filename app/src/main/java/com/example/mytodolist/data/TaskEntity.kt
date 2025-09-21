@@ -13,10 +13,11 @@ data class TaskEntity(
     val description: String?,
     val createdAt: Date = Date(),
     val updatedAt: Date = Date(),
+    val deadLine: Date,
     val finishedAt: Date?,
     val state: State = State.PENDING
 ){
     fun toDomain(): Task{
-        return Task(id, name, description, createdAt, updatedAt, finishedAt, state)
+        return Task(id, name, description, createdAt, updatedAt, deadLine, finishedAt, state)
     }
 }

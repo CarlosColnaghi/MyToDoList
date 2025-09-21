@@ -10,10 +10,11 @@ data class Task(
     val description: String?,
     val createdAt: Date,
     val updatedAt: Date,
+    val deadLine: Date,
     val finishedAt: Date?,
     val state: State
 ){
     fun toEntity(): TaskEntity{
-        return TaskEntity(id, name, description, createdAt, updatedAt, finishedAt, state)
+        return TaskEntity(id, name, description, createdAt, updatedAt, deadLine, finishedAt, state)
     }
 }

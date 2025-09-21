@@ -6,6 +6,10 @@
         <item name="android:background">@color/md_theme_onPrimaryContainer</item>
         <item name="titleTextColor">@color/md_theme_onPrimary</item>
         <item name="subtitleTextColor">@color/md_theme_onPrimary</item>
-        <item name="android:paddingTop">8dp</item>
+        <item name="android:padding">10dp</item>
+    </style>
+    <style name="Button">
+        <item name="backgroundTint">@color/md_theme_onPrimaryContainer</item>
+        <item name="tint">@color/md_theme_onPrimary</item>
     </style>
 </resources>
