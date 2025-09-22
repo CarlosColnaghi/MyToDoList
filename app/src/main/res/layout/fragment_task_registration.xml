@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:autofillHints="@string/deadline"
         android:hint="@string/deadline"
-        android:inputType="date"
+        android:inputType="none"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptionEditText"/>
@@ -48,6 +48,30 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/deadlineEditText"/>
 
+    <TextView
+        android:id="@+id/createdAtTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/created_at"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stateSpinner"/>
+
+    <TextView
+        android:id="@+id/updatedAtTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/updated_at"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/createdAtTextView"/>
+
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -57,7 +81,7 @@
         style="@style/Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/stateSpinner"/>
+        app:layout_constraintTop_toBottomOf="@+id/updatedAtTextView"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
