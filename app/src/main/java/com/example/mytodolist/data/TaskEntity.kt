@@ -8,14 +8,15 @@ import java.util.Date
 
 @Entity(tableName = "tasks")
 data class TaskEntity(
-    @PrimaryKey val id: Int,
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
     val name: String,
     val description: String?,
-    val createdAt: Date = Date(),
-    val updatedAt: Date = Date(),
+    val createdAt: Date,
+    val updatedAt: Date,
     val deadLine: Date,
     val finishedAt: Date?,
-    val state: State = State.PENDING
+    val state: State
 ){
     fun toDomain(): Task{
         return Task(id, name, description, createdAt, updatedAt, deadLine, finishedAt, state)

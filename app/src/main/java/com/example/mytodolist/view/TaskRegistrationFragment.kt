@@ -8,15 +8,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import androidx.fragment.app.viewModels
 import com.example.mytodolist.R
+import com.example.mytodolist.controller.TaskViewModel
 import com.example.mytodolist.data.State
 import com.example.mytodolist.databinding.FragmentTaskRegistrationBinding
+import com.example.mytodolist.domain.Task
+import java.time.Instant
 import java.util.Calendar
+import java.util.Date
 
 class TaskRegistrationFragment : Fragment() {
 
     private lateinit var fragmentTaskRegistrationBinding: FragmentTaskRegistrationBinding
     private  lateinit var taskStateAdapter: ArrayAdapter<String>
+
+    private val taskViewModel: TaskViewModel by viewModels {
+        TaskViewModel.TaskViewModelFactory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,6 +69,17 @@ class TaskRegistrationFragment : Fragment() {
                     calendar.get(Calendar.DAY_OF_MONTH)
                 )
                 datePicker.show()
+            }
+
+            saveButton.setOnClickListener {
+                taskViewModel.create(
+                    Task(
+                        name = nameEditText.text.toString(),
+                        description = descriptionEditText.text.toString(),
+                        deadLine = Date(),
+                        finishedAt = null
+                    )
+                )
             }
         }
         return fragmentTaskRegistrationBinding.root
