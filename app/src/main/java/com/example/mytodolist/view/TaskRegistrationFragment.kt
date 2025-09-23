@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.example.mytodolist.R
 import com.example.mytodolist.controller.TaskViewModel
 import com.example.mytodolist.data.State
@@ -17,11 +18,12 @@ import com.example.mytodolist.domain.Task
 import java.time.Instant
 import java.util.Calendar
 import java.util.Date
+import kotlin.text.set
 
 class TaskRegistrationFragment : Fragment() {
 
     private lateinit var fragmentTaskRegistrationBinding: FragmentTaskRegistrationBinding
-    private  lateinit var taskStateAdapter: ArrayAdapter<String>
+    private lateinit var taskStateAdapter: ArrayAdapter<String>
 
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModel.TaskViewModelFactory
@@ -40,6 +42,7 @@ class TaskRegistrationFragment : Fragment() {
             android.R.layout.simple_spinner_item,
             State.entries.map{it.displayName}.toTypedArray()
         )
+        var deadline: Date? = null
         taskStateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         fragmentTaskRegistrationBinding = FragmentTaskRegistrationBinding.inflate(inflater, container, false).apply {
             stateSpinner.adapter = taskStateAdapter
@@ -54,6 +57,9 @@ class TaskRegistrationFragment : Fragment() {
                         val timePicker = TimePickerDialog(
                             requireContext(),
                             { _, hourOfDay, minute ->
+                                deadline = Calendar.getInstance().apply {
+                                    set(year, month, dayOfMonth, hourOfDay, minute, 0)
+                                }.time
                                 deadlineEditText.setText(
                                     "%02d/%02d/%04d at %02d:%02d".format(dayOfMonth, month + 1, year, hourOfDay, minute)
                                 )
@@ -76,10 +82,12 @@ class TaskRegistrationFragment : Fragment() {
                     Task(
                         name = nameEditText.text.toString(),
                         description = descriptionEditText.text.toString(),
-                        deadLine = Date(),
-                        finishedAt = null
+                        deadLine = deadline!!,
+                        finishedAt = null,
+                        state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING
                     )
                 )
+                findNavController().navigateUp()
             }
         }
         return fragmentTaskRegistrationBinding.root
