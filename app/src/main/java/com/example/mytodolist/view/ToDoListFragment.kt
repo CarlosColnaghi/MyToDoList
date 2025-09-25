@@ -8,9 +8,12 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mytodolist.R
 import com.example.mytodolist.controller.TaskViewModel
 import com.example.mytodolist.databinding.FragmentToDoListBinding
+import com.example.mytodolist.domain.Task
+import com.example.mytodolist.view.adapter.TaskAdapter
 
 class ToDoListFragment : Fragment() {
     private lateinit var fragmentToDoListBinding: FragmentToDoListBinding
@@ -23,8 +26,21 @@ class ToDoListFragment : Fragment() {
         findNavController()
     }
 
+    private val toDoList: MutableList<Task> = mutableListOf()
+
+    private val taskAdapter: TaskAdapter by lazy{
+        TaskAdapter(toDoList)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        taskViewModel.toDoList.observe(requireActivity()){task ->
+            toDoList.clear()
+            task.forEachIndexed { index, task ->
+                toDoList.add(task)
+                taskAdapter.notifyItemChanged(index)
+            }
+        }
     }
 
     override fun onCreateView(
@@ -33,6 +49,9 @@ class ToDoListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         fragmentToDoListBinding = FragmentToDoListBinding.inflate(inflater, container, false).apply {
+            toDoListRecyclerView.layoutManager = LinearLayoutManager(context)
+            toDoListRecyclerView.adapter = taskAdapter
+
             taskRegistrationFloatingActionButton.setOnClickListener {
                 navController.navigate(
                     R.id.action_taskListFragment_to_taskRegistrationFragment

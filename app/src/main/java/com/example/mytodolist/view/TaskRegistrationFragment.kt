@@ -61,7 +61,7 @@ class TaskRegistrationFragment : Fragment() {
                                     set(year, month, dayOfMonth, hourOfDay, minute, 0)
                                 }.time
                                 deadlineEditText.setText(
-                                    "%02d/%02d/%04d at %02d:%02d".format(dayOfMonth, month + 1, year, hourOfDay, minute)
+                                    "%02d/%02d/%04d - %02d:%02d".format(dayOfMonth, month + 1, year, hourOfDay, minute)
                                 )
                             },
                             calendar.get(Calendar.HOUR_OF_DAY),
