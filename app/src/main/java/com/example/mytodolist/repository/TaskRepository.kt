@@ -10,6 +10,10 @@ class TaskRepository(private val taskDAO: TaskDAO) {
         taskDAO.insert(task.toEntity())
     }
 
+    suspend fun update(task: Task){
+        taskDAO.update(task.toEntity())
+    }
+
     fun getAll(): Flow<List<Task>> = taskDAO.getAll().map { toDoList ->
         toDoList.map{task ->
             task.toDomain()

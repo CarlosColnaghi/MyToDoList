@@ -84,7 +84,8 @@ class TaskRegistrationFragment : Fragment() {
                         description = descriptionEditText.text.toString(),
                         deadLine = deadline!!,
                         finishedAt = null,
-                        state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING
+                        state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING,
+                        lastState = null
                     )
                 )
                 findNavController().navigateUp()

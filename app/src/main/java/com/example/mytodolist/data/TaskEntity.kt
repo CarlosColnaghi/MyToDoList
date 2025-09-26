@@ -16,9 +16,10 @@ data class TaskEntity(
     val updatedAt: Date,
     val deadLine: Date,
     val finishedAt: Date?,
-    val state: State
+    val state: State,
+    val lastState: State?
 ){
     fun toDomain(): Task{
-        return Task(id, name, description, createdAt, updatedAt, deadLine, finishedAt, state)
+        return Task(id, name, description, createdAt, updatedAt, deadLine, finishedAt, state, lastState)
     }
 }

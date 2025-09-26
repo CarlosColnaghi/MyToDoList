@@ -17,6 +17,10 @@ class TaskViewModel(private val repository: TaskRepository): ViewModel() {
         repository.create(task)
     }
 
+    fun update(task: Task) = viewModelScope.launch(Dispatchers.IO){
+        repository.update(task)
+    }
+
     val toDoList = repository.getAll().asLiveData()
 
     companion object{

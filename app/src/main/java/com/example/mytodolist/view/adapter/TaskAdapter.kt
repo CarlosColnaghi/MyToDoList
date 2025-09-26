@@ -14,7 +14,10 @@ import java.util.Locale
 import java.util.TimeZone
 import kotlin.or
 
-class TaskAdapter(private val toDoList: List<Task>) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
+class TaskAdapter(
+    private val toDoList: List<Task>,
+    private val toDoListItemClickListener: ToDoListItemClickListener
+) : RecyclerView.Adapter<TaskAdapter.TaskViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder =
         ToDoListItemBinding.inflate(
@@ -43,6 +46,11 @@ class TaskAdapter(private val toDoList: List<Task>) : RecyclerView.Adapter<TaskA
                     deadlineTextView.paintFlags = deadlineTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     stateTextView.paintFlags = stateTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     doneCheckBox.isChecked = true
+                }else{
+                    nameTextView.paintFlags = nameTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    deadlineTextView.paintFlags = deadlineTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    stateTextView.paintFlags = stateTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    doneCheckBox.isChecked = false
                 }
             }
         }
@@ -60,7 +68,7 @@ class TaskAdapter(private val toDoList: List<Task>) : RecyclerView.Adapter<TaskA
             todoListItemBinding.apply {
                 root.run {
                     doneCheckBox.setOnClickListener {
-                        //TODO: implement this
+                        toDoListItemClickListener.clickOnDoneCheckBox(bindingAdapterPosition, doneCheckBox.isChecked)
                     }
                 }
             }
