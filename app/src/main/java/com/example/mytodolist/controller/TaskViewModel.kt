@@ -23,6 +23,8 @@ class TaskViewModel(private val repository: TaskRepository): ViewModel() {
 
     val toDoList = repository.getAll().asLiveData()
 
+    fun get(id: Long) = repository.get(id).asLiveData()
+
     companion object{
         val TaskViewModelFactory = object: ViewModelProvider.Factory{
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =

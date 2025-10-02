@@ -2,7 +2,6 @@ package com.example.mytodolist.domain
 
 import com.example.mytodolist.data.State
 import com.example.mytodolist.data.TaskEntity
-import java.time.Instant
 import java.util.Date
 
 data class Task(

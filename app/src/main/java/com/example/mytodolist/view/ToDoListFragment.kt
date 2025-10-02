@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mytodolist.R
@@ -56,7 +57,7 @@ class ToDoListFragment : Fragment(), ToDoListItemClickListener {
 
             taskRegistrationFloatingActionButton.setOnClickListener {
                 navController.navigate(
-                    R.id.action_taskListFragment_to_taskRegistrationFragment
+                    R.id.action_toDoListFragment_to_taskRegistrationFragment
                 )
             }
         }
@@ -84,6 +85,17 @@ class ToDoListFragment : Fragment(), ToDoListItemClickListener {
                 lastState ?: State.PENDING
             }
             taskViewModel.update(this)
+        }
+    }
+
+    override fun clickOnToDoListItemToEdit(position: Int) {
+        toDoList[position].also {
+            navController.navigate(
+                R.id.action_toDoListFragment_to_taskRegistrationFragment,
+                Bundle().apply {
+                    putLong("id", it.id)
+                }
+            )
         }
     }
 }

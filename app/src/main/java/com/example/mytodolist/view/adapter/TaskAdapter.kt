@@ -67,6 +67,9 @@ class TaskAdapter(
         init {
             todoListItemBinding.apply {
                 root.run {
+                    setOnClickListener {
+                        toDoListItemClickListener.clickOnToDoListItemToEdit(bindingAdapterPosition)
+                    }
                     doneCheckBox.setOnClickListener {
                         toDoListItemClickListener.clickOnDoneCheckBox(bindingAdapterPosition, doneCheckBox.isChecked)
                     }

@@ -15,9 +15,12 @@ import com.example.mytodolist.controller.TaskViewModel
 import com.example.mytodolist.data.State
 import com.example.mytodolist.databinding.FragmentTaskRegistrationBinding
 import com.example.mytodolist.domain.Task
+import java.text.SimpleDateFormat
 import java.time.Instant
 import java.util.Calendar
 import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import kotlin.text.set
 
 class TaskRegistrationFragment : Fragment() {
@@ -47,6 +50,36 @@ class TaskRegistrationFragment : Fragment() {
         fragmentTaskRegistrationBinding = FragmentTaskRegistrationBinding.inflate(inflater, container, false).apply {
             stateSpinner.adapter = taskStateAdapter
             stateSpinner.setSelection(0)
+
+            val id = requireArguments().getLong("id", -1L)
+            if (id != -1L){
+                taskViewModel.get(id).observe(viewLifecycleOwner){ task ->
+                    task?.let {
+                        nameEditText.setText(task.name)
+                        descriptionEditText.setText(task.description)
+                        stateSpinner.setSelection(taskStateAdapter.getPosition(task.state.displayName))
+                        //TODO: think in a better pattern for date format
+                        val dateFormat = SimpleDateFormat("dd/MM/yyyy '-' HH:mm", Locale.getDefault())
+                        dateFormat.timeZone = TimeZone.getDefault()
+                        deadline = task.deadLine
+                        deadlineEditText.setText(dateFormat.format(task.deadLine))
+                        "Created at: ${dateFormat.format(task.createdAt)}".also {
+                            createdAtTextView.text = it
+                            createdAtTextView.visibility = View.VISIBLE
+                        }
+                        "Updated at: ${dateFormat.format(task.updatedAt)}".also {
+                            updatedAtTextView.text = it
+                            updatedAtTextView.visibility = View.VISIBLE
+                        }
+                        if(task.finishedAt != null){
+                            "Finished at: ${dateFormat.format(task.finishedAt)}".also {
+                                finishedAtTextView.text = it
+                                finishedAtTextView.visibility = View.VISIBLE
+                            }
+                        }
+                    }
+                }
+            }
 
             deadlineEditText.setOnClickListener {
                 val calendar = Calendar.getInstance()
@@ -78,16 +111,33 @@ class TaskRegistrationFragment : Fragment() {
             }
 
             saveButton.setOnClickListener {
-                taskViewModel.create(
-                    Task(
-                        name = nameEditText.text.toString(),
-                        description = descriptionEditText.text.toString(),
-                        deadLine = deadline!!,
-                        finishedAt = null,
-                        state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING,
-                        lastState = null
+                val id = requireArguments().getLong("id", -1L)
+                if(id != -1L){
+                    //TODO: fix overriding updatedAt and createdAd columns after update
+                    taskViewModel.update(
+                        Task(
+                            id,
+                            name = nameEditText.text.toString(),
+                            description = descriptionEditText.text.toString(),
+                            deadLine = deadline!!,
+                            finishedAt = null,
+                            state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING,
+                            lastState = null
+                        )
                     )
-                )
+                } else {
+                    taskViewModel.create(
+                        Task(
+                            name = nameEditText.text.toString(),
+                            description = descriptionEditText.text.toString(),
+                            deadLine = deadline!!,
+                            finishedAt = null,
+                            state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING,
+                            lastState = null
+                        )
+                    )
+                }
+
                 findNavController().navigateUp()
             }
         }

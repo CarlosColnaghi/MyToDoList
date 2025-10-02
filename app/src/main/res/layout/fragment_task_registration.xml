@@ -72,6 +72,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/createdAtTextView"/>
 
+    <TextView
+        android:id="@+id/finishedAtTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Finished At:"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:visibility="gone"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/updatedAtTextView"/>
+
     <Button
         android:id="@+id/saveButton"
         android:layout_width="match_parent"
@@ -82,7 +94,7 @@
         style="@style/Button"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/updatedAtTextView"/>
+        app:layout_constraintTop_toBottomOf="@+id/finishedAtTextView"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

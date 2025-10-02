@@ -19,4 +19,8 @@ class TaskRepository(private val taskDAO: TaskDAO) {
             task.toDomain()
         }
     }
+
+    fun get(id: Long): Flow<Task> = taskDAO.get(id).map { task ->
+        task.toDomain()
+    }
 }
