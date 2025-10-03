@@ -21,6 +21,7 @@ import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import kotlin.text.get
 import kotlin.text.set
 
 class TaskRegistrationFragment : Fragment() {
@@ -80,6 +81,7 @@ class TaskRegistrationFragment : Fragment() {
                         }
                     }
                 }
+                deleteButton.visibility = View.VISIBLE
             }
 
             deadlineEditText.setOnClickListener {
@@ -113,7 +115,7 @@ class TaskRegistrationFragment : Fragment() {
 
             saveButton.setOnClickListener {
                 if(taskId != null){
-                    //TODO: fix overriding updatedAt and createdAd columns after update
+                    //TODO: fix overriding updatedAt and createdAt columns after update
                     taskViewModel.update(
                         Task(
                             taskId!!,
@@ -138,6 +140,12 @@ class TaskRegistrationFragment : Fragment() {
                     )
                 }
 
+                findNavController().navigateUp()
+            }
+            deleteButton.setOnClickListener {
+                if(taskId != null){
+                    taskViewModel.delete(taskId!!)
+                }
                 findNavController().navigateUp()
             }
         }

@@ -12,4 +12,8 @@
         <item name="backgroundTint">@color/md_theme_onPrimaryContainer</item>
         <item name="tint">@color/md_theme_onPrimary</item>
     </style>
+    <style name="DeleteButton">
+        <item name="backgroundTint">@color/md_theme_onErrorContainer</item>
+        <item name="tint">@color/md_theme_onPrimary</item>
+    </style>
 </resources>

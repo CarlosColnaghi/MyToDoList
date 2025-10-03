@@ -19,7 +19,7 @@ interface TaskDAO {
     fun getAll(): Flow<List<TaskEntity>>
 
     @Query("SELECT * FROM tasks where id = :id")
-    fun get(id: Long): Flow<TaskEntity>
+    fun get(id: Long): Flow<TaskEntity?>
 
     @Query("DELETE FROM tasks WHERE id = :id")
     suspend fun delete(id: Long)
