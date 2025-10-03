@@ -17,6 +17,7 @@ import com.example.mytodolist.databinding.FragmentToDoListBinding
 import com.example.mytodolist.domain.Task
 import com.example.mytodolist.view.adapter.TaskAdapter
 import com.example.mytodolist.view.adapter.ToDoListItemClickListener
+import kotlin.collections.addAll
 
 class ToDoListFragment : Fragment(), ToDoListItemClickListener {
     private lateinit var fragmentToDoListBinding: FragmentToDoListBinding
@@ -39,10 +40,8 @@ class ToDoListFragment : Fragment(), ToDoListItemClickListener {
         super.onCreate(savedInstanceState)
         taskViewModel.toDoList.observe(requireActivity()){task ->
             toDoList.clear()
-            task.forEachIndexed { index, task ->
-                toDoList.add(task)
-                taskAdapter.notifyItemChanged(index)
-            }
+            toDoList.addAll(task)
+            taskAdapter.notifyDataSetChanged()
         }
     }
 
@@ -98,4 +97,9 @@ class ToDoListFragment : Fragment(), ToDoListItemClickListener {
             )
         }
     }
+
+    override fun clickOnMenuItemToDelete(position: Int) {
+        taskViewModel.delete(toDoList[position].id)
+    }
+
 }

@@ -25,6 +25,10 @@ class TaskViewModel(private val repository: TaskRepository): ViewModel() {
 
     fun get(id: Long) = repository.get(id).asLiveData()
 
+    fun delete(id: Long) = viewModelScope.launch(Dispatchers.IO){
+        repository.delete(id)
+    }
+
     companion object{
         val TaskViewModelFactory = object: ViewModelProvider.Factory{
             override fun <T : ViewModel> create(modelClass: Class<T>, extras: CreationExtras): T =

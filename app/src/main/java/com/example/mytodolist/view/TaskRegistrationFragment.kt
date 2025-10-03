@@ -27,6 +27,7 @@ class TaskRegistrationFragment : Fragment() {
 
     private lateinit var fragmentTaskRegistrationBinding: FragmentTaskRegistrationBinding
     private lateinit var taskStateAdapter: ArrayAdapter<String>
+    private var taskId: Long? = null
 
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModel.TaskViewModelFactory
@@ -34,6 +35,7 @@ class TaskRegistrationFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        taskId = arguments?.getLong("id")
     }
 
     override fun onCreateView(
@@ -51,9 +53,8 @@ class TaskRegistrationFragment : Fragment() {
             stateSpinner.adapter = taskStateAdapter
             stateSpinner.setSelection(0)
 
-            val id = requireArguments().getLong("id", -1L)
-            if (id != -1L){
-                taskViewModel.get(id).observe(viewLifecycleOwner){ task ->
+            if (taskId != null){
+                taskViewModel.get(taskId!!).observe(viewLifecycleOwner){ task ->
                     task?.let {
                         nameEditText.setText(task.name)
                         descriptionEditText.setText(task.description)
@@ -111,12 +112,11 @@ class TaskRegistrationFragment : Fragment() {
             }
 
             saveButton.setOnClickListener {
-                val id = requireArguments().getLong("id", -1L)
-                if(id != -1L){
+                if(taskId != null){
                     //TODO: fix overriding updatedAt and createdAd columns after update
                     taskViewModel.update(
                         Task(
-                            id,
+                            taskId!!,
                             name = nameEditText.text.toString(),
                             description = descriptionEditText.text.toString(),
                             deadLine = deadline!!,

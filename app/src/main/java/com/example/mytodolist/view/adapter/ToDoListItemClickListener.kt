@@ -5,5 +5,5 @@ interface ToDoListItemClickListener {
 
     fun clickOnToDoListItemToEdit(position: Int)
 
-//    fun clickOnMenuItemToDelete(position: Int)
+    fun clickOnMenuItemToDelete(position: Int)
 }

@@ -5,7 +5,9 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import com.example.mytodolist.R
 import com.example.mytodolist.data.State
 import com.example.mytodolist.databinding.ToDoListItemBinding
 import com.example.mytodolist.domain.Task
@@ -72,6 +74,16 @@ class TaskAdapter(
                     }
                     doneCheckBox.setOnClickListener {
                         toDoListItemClickListener.clickOnDoneCheckBox(bindingAdapterPosition, doneCheckBox.isChecked)
+                    }
+                    setOnCreateContextMenuListener { menu, _, _ ->
+                        (toDoListItemClickListener as? Fragment)?.activity?.menuInflater?.inflate(
+                            R.menu.menu,
+                            menu
+                        )
+                        menu?.findItem(R.id.deleteMenuItem)?.setOnMenuItemClickListener {
+                            toDoListItemClickListener.clickOnMenuItemToDelete(bindingAdapterPosition)
+                            true
+                        }
                     }
                 }
             }
