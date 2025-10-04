@@ -1,8 +1,8 @@
 package com.example.mytodolist
 
 import android.app.Application
-import com.example.mytodolist.data.ToDoListDatabase
-import com.example.mytodolist.repository.TaskRepository
+import com.example.mytodolist.model.database.ToDoListDatabase
+import com.example.mytodolist.model.repository.TaskRepository
 
 class TaskApplication: Application() {
     val database by lazy{

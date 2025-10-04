@@ -1,13 +1,16 @@
-package com.example.mytodolist.data
+package com.example.mytodolist.model.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
+import com.example.mytodolist.model.convertes.TaskConverters
+import com.example.mytodolist.model.dao.TaskDAO
+import com.example.mytodolist.model.entity.TaskEntity
 
 @Database(entities = [TaskEntity::class], version = 1)
-@TypeConverters(Converters::class)
+@TypeConverters(TaskConverters::class)
 abstract class ToDoListDatabase: RoomDatabase() {
     abstract fun TaskDAO(): TaskDAO
 

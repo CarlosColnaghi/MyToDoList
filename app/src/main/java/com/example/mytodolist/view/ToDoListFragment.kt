@@ -7,17 +7,15 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.NavController
-import androidx.navigation.Navigation
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.mytodolist.R
 import com.example.mytodolist.controller.TaskViewModel
-import com.example.mytodolist.data.State
+import com.example.mytodolist.model.enums.TaskState
 import com.example.mytodolist.databinding.FragmentToDoListBinding
-import com.example.mytodolist.domain.Task
+import com.example.mytodolist.model.domain.Task
 import com.example.mytodolist.view.adapter.TaskAdapter
 import com.example.mytodolist.view.adapter.ToDoListItemClickListener
-import kotlin.collections.addAll
 
 class ToDoListFragment : Fragment(), ToDoListItemClickListener {
     private lateinit var fragmentToDoListBinding: FragmentToDoListBinding
@@ -79,9 +77,9 @@ class ToDoListFragment : Fragment(), ToDoListItemClickListener {
         toDoList[position].apply {
             state = if (checked){
                 lastState = state
-                State.DONE
+                TaskState.DONE
             } else {
-                lastState ?: State.PENDING
+                lastState ?: TaskState.PENDING
             }
             taskViewModel.update(this)
         }

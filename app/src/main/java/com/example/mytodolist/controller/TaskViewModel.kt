@@ -6,8 +6,8 @@ import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.lifecycle.viewmodel.CreationExtras
 import com.example.mytodolist.TaskApplication
-import com.example.mytodolist.domain.Task
-import com.example.mytodolist.repository.TaskRepository
+import com.example.mytodolist.model.domain.Task
+import com.example.mytodolist.model.repository.TaskRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 

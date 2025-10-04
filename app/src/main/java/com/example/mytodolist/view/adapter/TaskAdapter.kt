@@ -8,13 +8,12 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.mytodolist.R
-import com.example.mytodolist.data.State
+import com.example.mytodolist.model.enums.TaskState
 import com.example.mytodolist.databinding.ToDoListItemBinding
-import com.example.mytodolist.domain.Task
+import com.example.mytodolist.model.domain.Task
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
-import kotlin.or
 
 class TaskAdapter(
     private val toDoList: List<Task>,
@@ -43,7 +42,7 @@ class TaskAdapter(
                 "State: ${task.state.displayName}".also {
                     stateTextView.text = it
                 }
-                if(task.state == State.DONE){
+                if(task.state == TaskState.DONE){
                     nameTextView.paintFlags = nameTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     deadlineTextView.paintFlags = deadlineTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
                     stateTextView.paintFlags = stateTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG

@@ -1,7 +1,7 @@
-package com.example.mytodolist.repository
+package com.example.mytodolist.model.repository
 
-import com.example.mytodolist.data.TaskDAO
-import com.example.mytodolist.domain.Task
+import com.example.mytodolist.model.dao.TaskDAO
+import com.example.mytodolist.model.domain.Task
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

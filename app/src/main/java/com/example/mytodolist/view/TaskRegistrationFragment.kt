@@ -10,19 +10,15 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.example.mytodolist.R
 import com.example.mytodolist.controller.TaskViewModel
-import com.example.mytodolist.data.State
+import com.example.mytodolist.model.enums.TaskState
 import com.example.mytodolist.databinding.FragmentTaskRegistrationBinding
-import com.example.mytodolist.domain.Task
+import com.example.mytodolist.model.domain.Task
 import java.text.SimpleDateFormat
-import java.time.Instant
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
-import kotlin.text.get
-import kotlin.text.set
 
 class TaskRegistrationFragment : Fragment() {
 
@@ -46,7 +42,7 @@ class TaskRegistrationFragment : Fragment() {
         taskStateAdapter = ArrayAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            State.entries.map{it.displayName}.toTypedArray()
+            TaskState.entries.map{it.displayName}.toTypedArray()
         )
         var deadline: Date? = null
         taskStateAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -123,7 +119,7 @@ class TaskRegistrationFragment : Fragment() {
                             description = descriptionEditText.text.toString(),
                             deadLine = deadline!!,
                             finishedAt = null,
-                            state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING,
+                            state = TaskState.fromDisplayName(stateSpinner.selectedItem.toString()) ?: TaskState.PENDING,
                             lastState = null
                         )
                     )
@@ -134,7 +130,7 @@ class TaskRegistrationFragment : Fragment() {
                             description = descriptionEditText.text.toString(),
                             deadLine = deadline!!,
                             finishedAt = null,
-                            state = State.fromDisplayName(stateSpinner.selectedItem.toString()) ?: State.PENDING,
+                            state = TaskState.fromDisplayName(stateSpinner.selectedItem.toString()) ?: TaskState.PENDING,
                             lastState = null
                         )
                     )
