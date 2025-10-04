@@ -94,7 +94,7 @@ class TaskRegistrationFragment : Fragment() {
                             },
                             calendar.get(Calendar.HOUR_OF_DAY),
                             calendar.get(Calendar.MINUTE),
-                            true
+                            false
                         )
                         timePicker.show()
                     },
