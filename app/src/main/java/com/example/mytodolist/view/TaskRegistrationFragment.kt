@@ -68,7 +68,7 @@ class TaskRegistrationFragment : Fragment() {
                             updatedAtTextView.visibility = View.VISIBLE
                         }
                         if(task.finishedAt != null){
-                            "Finished at: ${DateFormatUtil.getStandardDateFormat(task.finishedAt)}".also {
+                            "Finished at: ${DateFormatUtil.getStandardDateFormat(task.finishedAt!!)}".also {
                                 finishedAtTextView.text = it
                                 finishedAtTextView.visibility = View.VISIBLE
                             }

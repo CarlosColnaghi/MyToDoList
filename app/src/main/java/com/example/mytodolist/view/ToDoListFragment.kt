@@ -16,6 +16,7 @@ import com.example.mytodolist.databinding.FragmentToDoListBinding
 import com.example.mytodolist.model.domain.Task
 import com.example.mytodolist.view.adapter.TaskAdapter
 import com.example.mytodolist.view.adapter.ToDoListItemClickListener
+import java.util.Date
 
 class ToDoListFragment : Fragment(), ToDoListItemClickListener {
     private lateinit var fragmentToDoListBinding: FragmentToDoListBinding
@@ -76,6 +77,7 @@ class ToDoListFragment : Fragment(), ToDoListItemClickListener {
     override fun clickOnDoneCheckBox(position: Int, checked: Boolean) {
         toDoList[position].apply {
             state = if (checked){
+                finishedAt = Date()
                 lastState = state
                 TaskState.DONE
             } else {

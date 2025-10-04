@@ -13,6 +13,7 @@ import com.example.mytodolist.databinding.ToDoListItemBinding
 import com.example.mytodolist.model.domain.Task
 import com.example.mytodolist.util.DateFormatUtil
 import java.text.SimpleDateFormat
+import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
@@ -41,17 +42,20 @@ class TaskAdapter(
                 "State: ${task.state.displayName}".also {
                     stateTextView.text = it
                 }
-                if(task.state == TaskState.DONE){
-                    nameTextView.paintFlags = nameTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    deadlineTextView.paintFlags = deadlineTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    stateTextView.paintFlags = stateTextView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-                    doneCheckBox.isChecked = true
-                }else{
-                    nameTextView.paintFlags = nameTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                    deadlineTextView.paintFlags = deadlineTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                    stateTextView.paintFlags = stateTextView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
-                    doneCheckBox.isChecked = false
+                val now = Date()
+                listOf(nameTextView, deadlineTextView, stateTextView).forEach { textView ->
+                    if((task.state != TaskState.DONE && now > task.deadLine) || (if (task.finishedAt != null) (task.finishedAt!! > task.deadLine) else false)){
+                        textView.setTextColor(textView.context.getColor(R.color.md_theme_error))
+                    }else{
+                        textView.setTextColor(textView.context.getColor(R.color.md_theme_onSurface))
+                    }
+                    if(task.state == TaskState.DONE){
+                        textView.paintFlags = textView.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
+                    }else{
+                        textView.paintFlags = textView.paintFlags and Paint.STRIKE_THRU_TEXT_FLAG.inv()
+                    }
                 }
+                doneCheckBox.isChecked = task.state == TaskState.DONE
             }
         }
     }

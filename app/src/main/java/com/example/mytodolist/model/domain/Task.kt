@@ -11,7 +11,7 @@ data class Task(
     val createdAt: Date,
     val updatedAt: Date = Date(),
     val deadLine: Date,
-    val finishedAt: Date?,
+    var finishedAt: Date?,
     var state: TaskState = TaskState.PENDING,
     var lastState: TaskState?
 ){
