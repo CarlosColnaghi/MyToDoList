@@ -11,6 +11,7 @@ import com.example.mytodolist.R
 import com.example.mytodolist.model.enums.TaskState
 import com.example.mytodolist.databinding.ToDoListItemBinding
 import com.example.mytodolist.model.domain.Task
+import com.example.mytodolist.util.DateFormatUtil
 import java.text.SimpleDateFormat
 import java.util.Locale
 import java.util.TimeZone
@@ -34,9 +35,7 @@ class TaskAdapter(
                 "Name: ${task.name}".also {
                     nameTextView.text = it
                 }
-                val dateFormat = SimpleDateFormat("dd/MM/yyyy '-' HH:mm", Locale.getDefault())
-                dateFormat.timeZone = TimeZone.getDefault()
-                "Deadline: ${dateFormat.format(task.deadLine)}".also {
+                "Deadline: ${DateFormatUtil.getStandardDateFormat(task.deadLine)}".also {
                     deadlineTextView.text = it
                 }
                 "State: ${task.state.displayName}".also {

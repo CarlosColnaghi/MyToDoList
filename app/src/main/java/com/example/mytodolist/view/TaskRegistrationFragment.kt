@@ -14,11 +14,9 @@ import com.example.mytodolist.controller.TaskViewModel
 import com.example.mytodolist.model.enums.TaskState
 import com.example.mytodolist.databinding.FragmentTaskRegistrationBinding
 import com.example.mytodolist.model.domain.Task
-import java.text.SimpleDateFormat
+import com.example.mytodolist.util.DateFormatUtil
 import java.util.Calendar
 import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 class TaskRegistrationFragment : Fragment() {
 
@@ -58,22 +56,19 @@ class TaskRegistrationFragment : Fragment() {
                         nameEditText.setText(task.name)
                         descriptionEditText.setText(task.description)
                         stateSpinner.setSelection(taskStateAdapter.getPosition(task.state.displayName))
-                        //TODO: think in a better pattern for date format
-                        val dateFormat = SimpleDateFormat("dd/MM/yyyy '-' HH:mm", Locale.getDefault())
-                        dateFormat.timeZone = TimeZone.getDefault()
                         deadline = task.deadLine
-                        deadlineEditText.setText(dateFormat.format(task.deadLine))
+                        deadlineEditText.setText(DateFormatUtil.getStandardDateFormat(task.deadLine))
                         createdAt = task.createdAt
-                        "Created at: ${dateFormat.format(task.createdAt)}".also {
+                        "Created at: ${DateFormatUtil.getStandardDateFormat(task.createdAt)}".also {
                             createdAtTextView.text = it
                             createdAtTextView.visibility = View.VISIBLE
                         }
-                        "Updated at: ${dateFormat.format(task.updatedAt)}".also {
+                        "Updated at: ${DateFormatUtil.getStandardDateFormat(task.updatedAt)}".also {
                             updatedAtTextView.text = it
                             updatedAtTextView.visibility = View.VISIBLE
                         }
                         if(task.finishedAt != null){
-                            "Finished at: ${dateFormat.format(task.finishedAt)}".also {
+                            "Finished at: ${DateFormatUtil.getStandardDateFormat(task.finishedAt)}".also {
                                 finishedAtTextView.text = it
                                 finishedAtTextView.visibility = View.VISIBLE
                             }
@@ -95,9 +90,7 @@ class TaskRegistrationFragment : Fragment() {
                                 deadline = Calendar.getInstance().apply {
                                     set(year, month, dayOfMonth, hourOfDay, minute, 0)
                                 }.time
-                                deadlineEditText.setText(
-                                    "%02d/%02d/%04d - %02d:%02d".format(dayOfMonth, month + 1, year, hourOfDay, minute)
-                                )
+                                deadlineEditText.setText(DateFormatUtil.getStandardDateFormat(deadline!!))
                             },
                             calendar.get(Calendar.HOUR_OF_DAY),
                             calendar.get(Calendar.MINUTE),
