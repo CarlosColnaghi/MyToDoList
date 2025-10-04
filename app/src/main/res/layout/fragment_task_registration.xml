@@ -36,6 +36,9 @@
         android:autofillHints="@string/deadline"
         android:hint="@string/deadline"
         android:inputType="none"
+        android:focusable="false"
+        android:clickable="true"
+        android:cursorVisible="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/descriptionEditText"/>
@@ -76,7 +79,7 @@
         android:id="@+id/finishedAtTextView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Finished At:"
+        android:text="@string/finished_at"
         android:layout_marginTop="10dp"
         android:layout_marginStart="10dp"
         android:visibility="gone"
