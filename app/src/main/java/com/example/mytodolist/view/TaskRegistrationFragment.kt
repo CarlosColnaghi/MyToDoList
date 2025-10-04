@@ -26,6 +26,8 @@ class TaskRegistrationFragment : Fragment() {
     private lateinit var taskStateAdapter: ArrayAdapter<String>
     private var taskId: Long? = null
 
+    private var createdAt: Date = Date()
+
     private val taskViewModel: TaskViewModel by viewModels {
         TaskViewModel.TaskViewModelFactory
     }
@@ -61,6 +63,7 @@ class TaskRegistrationFragment : Fragment() {
                         dateFormat.timeZone = TimeZone.getDefault()
                         deadline = task.deadLine
                         deadlineEditText.setText(dateFormat.format(task.deadLine))
+                        createdAt = task.createdAt
                         "Created at: ${dateFormat.format(task.createdAt)}".also {
                             createdAtTextView.text = it
                             createdAtTextView.visibility = View.VISIBLE
@@ -110,16 +113,17 @@ class TaskRegistrationFragment : Fragment() {
             }
 
             saveButton.setOnClickListener {
+                var taskState = TaskState.fromDisplayName(stateSpinner.selectedItem.toString()) ?: TaskState.PENDING
                 if(taskId != null){
-                    //TODO: fix overriding updatedAt and createdAt columns after update
                     taskViewModel.update(
                         Task(
                             taskId!!,
                             name = nameEditText.text.toString(),
                             description = descriptionEditText.text.toString(),
+                            createdAt,
                             deadLine = deadline!!,
-                            finishedAt = null,
-                            state = TaskState.fromDisplayName(stateSpinner.selectedItem.toString()) ?: TaskState.PENDING,
+                            finishedAt = if(taskState == TaskState.DONE) Date() else null,
+                            state =taskState,
                             lastState = null
                         )
                     )
@@ -128,9 +132,10 @@ class TaskRegistrationFragment : Fragment() {
                         Task(
                             name = nameEditText.text.toString(),
                             description = descriptionEditText.text.toString(),
+                            createdAt = Date(),
                             deadLine = deadline!!,
-                            finishedAt = null,
-                            state = TaskState.fromDisplayName(stateSpinner.selectedItem.toString()) ?: TaskState.PENDING,
+                            finishedAt = if(taskState == TaskState.DONE) Date() else null,
+                            state = taskState,
                             lastState = null
                         )
                     )
