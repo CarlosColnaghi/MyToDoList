@@ -60,6 +60,10 @@ Quando uma tarefa foi concluida depois da deadline ou se ja passou o tempo dela 
 
 ![tarefa atrasada](./screenshots/late-task.png)
 
+### Persistência de dados
+
+![persistência de dados](./screenshots/data-persistence.png)
+
 ## Trabalhos futuros
 
 Futuramente, seria interessante implementar filtros de buscas e de ordenação.
